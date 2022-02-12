@@ -1,7 +1,7 @@
-package services;
+package ru.forsh.services.services;
 
 import org.springframework.stereotype.Service;
-import repositories.AutorRepository;
+import ru.forsh.services.repositories.AutorRepository;
 
 @Service
 public class AutorService {

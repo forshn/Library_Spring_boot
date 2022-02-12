@@ -1,4 +1,4 @@
-package entites;
+package ru.forsh.services.entites;
 
 import lombok.Data;
 import lombok.experimental.Accessors;
