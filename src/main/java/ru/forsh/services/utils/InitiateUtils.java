@@ -23,29 +23,54 @@ public class InitiateUtils implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        List<BookEntity> bookEntities = new ArrayList<>(Arrays.asList(
-                new BookEntity()
-                        .setNameBook("Война и Мир")
-                        .setAutorId(Math.abs(new Random().nextInt() % 10)),
-                new BookEntity()
-                        .setNameBook("Преступление и наказание")
-                        .setAutorId(Math.abs(new Random().nextInt() % 10)),
-                new BookEntity()
-                        .setNameBook("Аэропорт")
-                        .setAutorId(Math.abs(new Random().nextInt() % 10))
-        ));
+        List<BookEntity> bookEntityList = new ArrayList<>(
+                Arrays.asList(
+                        new BookEntity()
+                                .setNameBook("Горе от ума")
+                                .setYearCreat(1824)
+                                .setAutorId(1),
+                        new BookEntity()
+                                .setNameBook("Война и мир")
+                                .setYearCreat(1863)
+                                .setAutorId(2),
+                        new BookEntity()
+                                .setNameBook("Мцыри")
+                                .setYearCreat(1838)
+                                .setAutorId(3),
+                        new BookEntity()
+                                .setNameBook("Евгений Онегин")
+                                .setYearCreat(1833)
+                                .setAutorId(4)
+                )
+        );
 
-        List<AutorEntity> autorEntities = new ArrayList<>(Arrays.asList(
-                new AutorEntity().setFirstNameAutor("Александр")
-                        .setLastNameAutor("Блок"),
-                new AutorEntity().setFirstNameAutor("Федор")
-                        .setLastNameAutor("Достоевский"),
-                new AutorEntity().setFirstNameAutor("Артур")
-                        .setLastNameAutor("Хейли")
-        ));
+        List<AutorEntity> authorEntityList = new ArrayList<>(
+                Arrays.asList(
+                        new AutorEntity()
+                                .setFirstNameAutor("Александр")
+                                .setLastNameAutor("Грибоедов"),
+                        new AutorEntity()
+                                .setFirstNameAutor("Лев")
+                                .setLastNameAutor("Толстой"),
+                        new AutorEntity()
+                                .setFirstNameAutor("Михаил")
+                                .setLastNameAutor("Лермонтов"),
+                        new AutorEntity()
+                                .setFirstNameAutor("Александр")
+                                .setLastNameAutor("Пушкин")
+                ));
 
-        bookService.saveAll(bookEntities);
+        bookService.saveAll(bookEntityList);
+        autorService.saveAll(authorEntityList);
 
-        bookService.getAll().forEach(System.out::println);
+        System.out.println("\nТаблица книг");
+        for (BookEntity book : bookService.findAll()) {
+            System.out.println(book);
+        }
+
+        System.out.println("\nТаблица авторов");
+        for (AutorEntity author : autorService.findAll()) {
+            System.out.println(author);
+        }
     }
 }

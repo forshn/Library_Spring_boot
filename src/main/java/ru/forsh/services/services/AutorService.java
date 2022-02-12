@@ -13,7 +13,7 @@ import java.util.List;
 public class AutorService {
     private final AutorRepository repository;
 
-    public List<AutorEntity> getAll(){
+    public List<AutorEntity> findAll(){
         return repository.findAll();
     }
 

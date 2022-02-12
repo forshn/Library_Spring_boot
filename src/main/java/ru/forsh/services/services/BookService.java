@@ -20,7 +20,7 @@ public class BookService {
         repository.save(book);
     }
 
-    public List<BookEntity> getAll(){
+    public List<BookEntity> findAll(){
         return repository.findAll();
     }
 
