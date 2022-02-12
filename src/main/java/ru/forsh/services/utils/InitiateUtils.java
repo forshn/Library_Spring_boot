@@ -1,17 +1,16 @@
 package ru.forsh.services.utils;
 
-import ru.forsh.services.entites.AutorEntity;
-import ru.forsh.services.entites.BookEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Service;
+import ru.forsh.services.entites.AutorEntity;
+import ru.forsh.services.entites.BookEntity;
 import ru.forsh.services.services.AutorService;
 import ru.forsh.services.services.BookService;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Random;
 
 @Service
 @RequiredArgsConstructor
