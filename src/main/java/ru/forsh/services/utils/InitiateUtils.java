@@ -71,5 +71,9 @@ public class InitiateUtils implements CommandLineRunner {
         for (AutorEntity author : autorService.findAll()) {
             System.out.println(author);
         }
+
+        System.out.println("\n Таблица книг и авторов, через строку");
+        bookService.joinBookString().forEach(System.out::println);
+
     }
 }
