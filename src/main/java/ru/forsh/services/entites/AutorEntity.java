@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Accessors(chain = true)
 @Entity
 @Data
-@Table(name = "autor_table")
+@Table(name = "AUTHORENTITY")
 public class AutorEntity {
 
     @Id

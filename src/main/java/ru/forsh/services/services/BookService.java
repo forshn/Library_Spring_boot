@@ -4,14 +4,21 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.forsh.services.entites.BookEntity;
 import ru.forsh.services.entites.BookValueEntities;
+import ru.forsh.services.entites.BookValueEntitiesComparison;
 import ru.forsh.services.repositories.BookRepository;
 
+import javax.persistence.EntityManager;
 import java.util.ArrayList;
 import java.util.List;
 
 @RequiredArgsConstructor
 @Service
 public class BookService {
+    private final String SQL_COMPARISON = "select BOOKENTITY.id_book, BOOKENTITY.book_name, AUTHORENTITY.first_name, AUTHORENTITY.last_name,BOOKENTITY.creation_date from  " +
+            "AUTHORENTITY left join BOOKENTITY on AUTHORENTITY.id_autor = BOOKENTITY.autor_id";
+
+    private final EntityManager entityManager;
+
     private final BookRepository repository;
 
     public void saveAll(List<BookEntity> bookEntities) {
@@ -32,6 +39,14 @@ public class BookService {
 
     public List<Object[]> joinBookObj(){
         return repository.joinBookObj();
+    }
+
+    public List<BookValueEntitiesComparison> bookValueEntitiesComparisonList() {
+        return entityManager //зовем менеджера и начинаем ему указывать
+                .createNativeQuery(//для начала создай пожалуйста "чистый"(native) SQL запрос
+                        SQL_COMPARISON,//из этой строковой переменной возьми запрос
+                        BookValueEntitiesComparison.class)// ответ замаппить в этот класс
+                .getResultList();//а результат мне заверни в лист!!! И побыстрее!!!Шнеля, шнеля!!!
     }
 
     public List<BookValueEntities> bookValueEntitiesList(){

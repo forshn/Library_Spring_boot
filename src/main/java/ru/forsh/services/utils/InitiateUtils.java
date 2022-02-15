@@ -5,6 +5,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Service;
 import ru.forsh.services.entites.AutorEntity;
 import ru.forsh.services.entites.BookEntity;
+import ru.forsh.services.entites.BookValueEntities;
 import ru.forsh.services.services.AutorService;
 import ru.forsh.services.services.BookService;
 
@@ -75,5 +76,10 @@ public class InitiateUtils implements CommandLineRunner {
         System.out.println("\n Таблица книг и авторов, через строку");
         bookService.joinBookString().forEach(System.out::println);
 
+
+        System.out.println("\nТаблица книг и их авторов, через сопоставление");
+        for(Object book: bookService.bookValueEntitiesComparisonList()){
+            System.out.println(book);
+        }
     }
 }
