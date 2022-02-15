@@ -24,11 +24,23 @@ public class BookService {
     private final String SQL_ANNOTATION = "select  BOOKENTITY.id_book as id_book_value, BOOKENTITY.book_name, AUTHORENTITY.first_name, AUTHORENTITY.last_name,BOOKENTITY.creation_date from  " +
             "AUTHORENTITY left join BOOKENTITY on AUTHORENTITY.id_author = BOOKENTITY.author_id";
 
+    private final String packaging = "Всё в лучем виде!)";
+
+    private final Integer price = 100_000;
+
     private final MappingUtils mappingUtils;
 
     private final EntityManager entityManager;
 
     private final BookRepository repository;
+
+    public void pack(List<BookDto> bookDtos){
+        bookDtos.forEach(book -> book.setPackaging(packaging));
+    }
+
+    public void setPrice(List<BookDto> bookDtos){
+        bookDtos.forEach(book -> book.setPrice(price));
+    }
 
     public void saveAll(List<BookEntity> bookEntities) {
         repository.saveAll(bookEntities);

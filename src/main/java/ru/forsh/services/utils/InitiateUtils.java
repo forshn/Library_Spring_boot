@@ -87,5 +87,12 @@ public class InitiateUtils implements CommandLineRunner {
         for (BookDto dto : bookService.findAll()) {
             System.out.println(dto);
         }
+
+        List<BookDto> bookDtos = bookService.findAll();
+
+        bookService.pack(bookDtos);
+        bookService.setPrice(bookDtos);
+
+        bookDtos.forEach(System.out::println);
     }
 }
