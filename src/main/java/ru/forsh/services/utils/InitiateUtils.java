@@ -3,6 +3,7 @@ package ru.forsh.services.utils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Service;
+import ru.forsh.services.dto.BookDto;
 import ru.forsh.services.entites.AutorEntity;
 import ru.forsh.services.entites.BookEntity;
 import ru.forsh.services.entites.BookValueEntities;
@@ -63,11 +64,11 @@ public class InitiateUtils implements CommandLineRunner {
         bookService.saveAll(bookEntityList);
         autorService.saveAll(authorEntityList);
 
-        System.out.println("\nТаблица книг");
+       /* System.out.println("\nТаблица книг");
         for (BookEntity book : bookService.findAll()) {
             System.out.println(book);
         }
-
+*/
         System.out.println("\nТаблица авторов");
         for (AutorEntity author : autorService.findAll()) {
             System.out.println(author);
@@ -80,6 +81,11 @@ public class InitiateUtils implements CommandLineRunner {
         System.out.println("\nТаблица книг и их авторов, через сопоставление");
         for(Object book: bookService.bookValueEntitiesComparisonList()){
             System.out.println(book);
+        }
+
+        System.out.println("\nВитрина магазина");
+        for (BookDto dto : bookService.findAll()) {
+            System.out.println(dto);
         }
     }
 }

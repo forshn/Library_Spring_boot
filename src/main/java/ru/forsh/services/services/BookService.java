@@ -2,15 +2,18 @@ package ru.forsh.services.services;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import ru.forsh.services.dto.BookDto;
 import ru.forsh.services.entites.BookEntity;
 import ru.forsh.services.entites.BookValueEntities;
 import ru.forsh.services.entites.BookValueEntitiesAnnotation;
 import ru.forsh.services.entites.BookValueEntitiesComparison;
 import ru.forsh.services.repositories.BookRepository;
+import ru.forsh.services.utils.MappingUtils;
 
 import javax.persistence.EntityManager;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -20,6 +23,8 @@ public class BookService {
 
     private final String SQL_ANNOTATION = "select  BOOKENTITY.id_book as id_book_value, BOOKENTITY.book_name, AUTHORENTITY.first_name, AUTHORENTITY.last_name,BOOKENTITY.creation_date from  " +
             "AUTHORENTITY left join BOOKENTITY on AUTHORENTITY.id_author = BOOKENTITY.author_id";
+
+    private final MappingUtils mappingUtils;
 
     private final EntityManager entityManager;
 
@@ -33,9 +38,9 @@ public class BookService {
         repository.save(book);
     }
 
-    public List<BookEntity> findAll() {
+    /*public List<BookEntity> findAll() {
         return repository.findAll();
-    }
+    }*/
 
     public List<String> joinBookString(){
         return repository.joinBookString();
@@ -44,6 +49,20 @@ public class BookService {
     public List<Object[]> joinBookObj(){
         return repository.joinBookObj();
     }
+
+    public List<BookDto> findAll(){
+        return repository
+                .findAll()
+                .stream()
+                .map(MappingUtils::mapToBookDto)
+                .collect(Collectors.toList());
+    }
+
+    public BookDto findById(Integer id){
+        return MappingUtils.mapToBookDto(repository.findById(id).orElse(new BookEntity()));
+    }
+
+
 
     public List<BookValueEntitiesAnnotation> bookValueEntitiesAnnotationList() {
         return entityManager//как и в прошлый раз зовем начальника
