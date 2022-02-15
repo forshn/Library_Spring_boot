@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.forsh.services.entites.BookEntity;
 import ru.forsh.services.entites.BookValueEntities;
+import ru.forsh.services.entites.BookValueEntitiesAnnotation;
 import ru.forsh.services.entites.BookValueEntitiesComparison;
 import ru.forsh.services.repositories.BookRepository;
 
@@ -16,6 +17,9 @@ import java.util.List;
 public class BookService {
     private final String SQL_COMPARISON = "select BOOKENTITY.id_book, BOOKENTITY.book_name, AUTHORENTITY.first_name, AUTHORENTITY.last_name,BOOKENTITY.creation_date from  " +
             "AUTHORENTITY left join BOOKENTITY on AUTHORENTITY.id_autor = BOOKENTITY.autor_id";
+
+    private final String SQL_ANNOTATION = "select  BOOKENTITY.id_book as id_book_value, BOOKENTITY.book_name, AUTHORENTITY.first_name, AUTHORENTITY.last_name,BOOKENTITY.creation_date from  " +
+            "AUTHORENTITY left join BOOKENTITY on AUTHORENTITY.id_author = BOOKENTITY.author_id";
 
     private final EntityManager entityManager;
 
@@ -40,6 +44,15 @@ public class BookService {
     public List<Object[]> joinBookObj(){
         return repository.joinBookObj();
     }
+
+    public List<BookValueEntitiesAnnotation> bookValueEntitiesAnnotationList() {
+        return entityManager//как и в прошлый раз зовем начальника
+                .createNativeQuery(//давай нам чистый SQL запрос
+                        SQL_ANNOTATION,//вот тебе текст запроса
+                        "BookValueMapping")//вот тебе имя нашего маппинга
+                .getResultList();//и как обычно заверни нам в лист!!! Ты еще тут?
+    }
+
 
     public List<BookValueEntitiesComparison> bookValueEntitiesComparisonList() {
         return entityManager //зовем менеджера и начинаем ему указывать
